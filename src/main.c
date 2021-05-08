@@ -65,7 +65,6 @@ SDL_Event event;
 planet *tab = NULL;
 camera cam;
 point centerMass;
-point **tracker;
 
 //Position de la souris
 int x;
@@ -140,27 +139,17 @@ int main(int argc, char **argv){
                     if (type == 0){ 
 
                     }else if (type == 1){
-                        if (start){//Si ce n'ai pas le premiere chargement on free 
-                            freePoint2(tracker, taille);
-                            free(tab);
-                        }
                         taille = 2; //Nombre de corps 2
                         tab = allocPlanet(taille);
                         initPlanetDemo1(tab, HEIGHT,WIDTH); //Chargement de la premiere demo
                         //Allocation pour la track de l'orbit
-                        tracker = allocPoint2(taille, nTrace);
                         start = 1;
                         isMenuOn = 0;//On quit le menu
                     }else if (type > 1){
-                        if (start){ //Si ce n'ai pas le premiere chargement on free 
-                            freePoint2(tracker, taille);
-                            free(tab);
-                        }
                         taille = type;
                         tab = allocPlanet(taille);
                         initPlanetAlea(tab, taille, HEIGHT, WIDTH);
                             //Allocation pour la track de l'orbit
-                            tracker = allocPoint2(taille, nTrace);
                         start = 1;
                         isMenuOn = 0; //On quit le menu
                     }
@@ -215,13 +204,9 @@ int main(int argc, char **argv){
 
             //Actualisation de la position des planetes
             updatePlanet(tab, taille);
-            updateTracker(tab, tracker, taille, count);
-            if (count > nTrace) count = 0;
-                else count++;
 
             //Affichage des planete
             affichage(renderer, tab, taille);
-            affichageTracker(renderer, tracker, taille, nTrace);
             
             /*--------Gestion-FPS--------*/
 
@@ -266,7 +251,6 @@ int main(int argc, char **argv){
     SDL_DestroyWindow(window);
     TTF_Quit();
     SDL_Quit();
-    freePoint2(tracker, taille);
     free(tab);
     return EXIT_SUCCESS;
 }
