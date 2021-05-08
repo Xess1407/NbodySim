@@ -52,6 +52,7 @@ char test[10];
 
 /*Gestion des menus*/
 int isMenuOn = 1;
+short pause = 0;
 
 /*Gestion des fps*/
 int fps = 0, tick = 0, tickDepart = 0, tickArrivee = 0, difference = 0; 
@@ -107,11 +108,15 @@ int main(int argc, char **argv){
     tick = SDL_GetTicks();
     SDL_Color colorWhite = {255, 255, 255}; //Definition de la couleur blanc pour la police de caractere
 
-    //boucle pour que le programme tourne 
+    /*-------------------------------------------------------------------------------------*/
+    /*---------------------------------------BOUCLE----------------------------------------*/
+    /*-------------------------------------------------------------------------------------*/
     while(program_launched){
         tickDepart = SDL_GetTicks();
 
-        /*--------gestion-evenement---------*/
+        /*---------------------------------------------------------------------------------*/
+        /*---------------------------------gestion-evenement-------------------------------*/
+        /*---------------------------------------------------------------------------------*/
         while(SDL_PollEvent(&event)){
 
             switch (event.type)
@@ -120,9 +125,12 @@ int main(int argc, char **argv){
                     program_launched = SDL_FALSE;
                 break;
             case SDL_MOUSEBUTTONDOWN : //Souris
-                SDL_GetMouseState(&x, &y); //Recuperation des coord de la souris au moment du click
+                
 
                 if(isMenuOn){
+                    //Recuperation des coord de la souris au moment du click
+                    SDL_GetMouseState(&x, &y); 
+
                     if (x > 303 && x < 480 && y > 225 && y < 290){ //On verifie si le click est dans le bouton
                         type = 1;
                     }
@@ -142,28 +150,39 @@ int main(int argc, char **argv){
                         taille = 2; //Nombre de corps 2
                         tab = allocPlanet(taille);
                         initPlanetDemo1(tab, HEIGHT,WIDTH); //Chargement de la premiere demo
-                        //Allocation pour la track de l'orbit
                         start = 1;
                         isMenuOn = 0;//On quit le menu
-                    }else if (type > 1){
+                    }else if (type > 2){
                         taille = type;
                         tab = allocPlanet(taille);
                         initPlanetAlea(tab, taille, HEIGHT, WIDTH);
-                            //Allocation pour la track de l'orbit
                         start = 1;
                         isMenuOn = 0; //On quit le menu
+                    }else{
+                        taille = 2; //Nombre de corps 2
+                        tab = allocPlanet(taille);
+                        initPlanetDemo2(tab, HEIGHT,WIDTH); //Chargement de la premiere demo
+                        start = 1;
+                        isMenuOn = 0;//On quit le menu
                     }
+                    
                     type = 0;
                 }
                 break;
                 case SDL_KEYDOWN :
                     switch (event.key.keysym.sym)
                     {
-                    case SDLK_ESCAPE:
-                    if (isMenuOn != 1){
-                            isMenuOn = 1; //retour au menu si on n'y est pas deja
-                    }
-                        break;
+                        case SDLK_ESCAPE:
+                            if (isMenuOn != 1) //Switch MENU
+                                isMenuOn = 1;
+                            break;
+
+                        case SDLK_SPACE:  //Switch PAUSE
+                            if (pause == 1)
+                                pause = 0; 
+                            else
+                                pause = 1;
+                            break;
                     default:
                         break;
                     }
@@ -172,8 +191,9 @@ int main(int argc, char **argv){
                 break;
             }
         }
-        /*------------------------------*/
-
+/*-------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------*/
 
         // Permet de detruire ce qui a etait fait avant
         if (SDL_SetRenderDrawColor(renderer, 0,0,0, SDL_ALPHA_OPAQUE) != 0) 
@@ -202,9 +222,10 @@ int main(int argc, char **argv){
                 tab[i].y -= cam.y;
             }
 
-            //Actualisation de la position des planetes
-            updatePlanet(tab, taille);
-
+            if (!pause){
+                //Actualisation de la position des planetes
+                updatePlanet(tab, taille);
+            }
             //Affichage des planete
             affichage(renderer, tab, taille);
             
@@ -231,8 +252,6 @@ int main(int argc, char **argv){
             SDL_RenderCopy(renderer, texture, NULL, &dstrect);
 
             SDL_FreeSurface(texteFPS); 
-            //SDL_DestroyTexture(texture);
-
             /*--------------------------*/
         } 
 

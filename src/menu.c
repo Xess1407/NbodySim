@@ -159,7 +159,7 @@ void menu(SDL_Renderer* renderer,TTF_Font *font, int height, int width){
  * @param height 
  * @param width 
  */
-void pause(SDL_Renderer* renderer,TTF_Font *font, int height, int width){
+void menuPause(SDL_Renderer* renderer,TTF_Font *font, int height, int width){
     int texW = width, texH = height;
     SDL_Surface *texte = NULL;
     SDL_Texture * texture;

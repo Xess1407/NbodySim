@@ -26,8 +26,8 @@
  */
 void initPlanetDemo1(planet* t, int height, int width){
 
-        t[0].x = width/8;
-        t[0].y = height/8;
+        t[0].x = width/8 + 5;
+        t[0].y = height/8 + 5;
         t[0].x_vel = 10;
         t[0].y_vel = -10;
         t[0].rayon = 20;
@@ -59,16 +59,4 @@ void initPlanetDemo2(planet* t, int height, int width){
         t[1].x_vel = 0;
         t[1].y_vel = 10;
         t[1].rayon = 20;
-
-        t[2].x = width/2 + width/4; //a droite
-        t[2].y = height/2;
-        t[2].x_vel = 0;
-        t[2].y_vel = -10;
-        t[2].rayon = 20;
-
-        t[3].x = width/2; //en bas
-        t[3].y = height/2+height/4;
-        t[3].x_vel = 10;
-        t[3].y_vel = 0;
-        t[3].rayon = 20;
 }
