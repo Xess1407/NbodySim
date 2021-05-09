@@ -1,6 +1,11 @@
 #ifndef __GRAVITATION_H_
 #define __GRAVITATION_H_
+#include <SDL.h>
 
+/**
+ * @brief Definition d'une structure de planet
+ * 
+ */
 typedef struct planet
 {
     float x; //position x 
@@ -11,10 +16,19 @@ typedef struct planet
 
 }planet;
 
+/**
+ * @brief Definition d'une structure de point
+ * 
+ */
 typedef struct point
 {
     float x,y;
 }point;
+
+typedef struct pointInt
+{
+    int x,y;
+}pointInt;
 
 
 point** allocPoint2(int ligne, int colonne);

@@ -25,6 +25,7 @@
 #include "camera.h"
 #include "demo.h"
 #include "menu.h"
+#include "queuePoint.h"
 
 #define HEIGHT 800
 #define WIDTH 800
@@ -41,6 +42,7 @@ int type = 0; //Selection
 int aleaUser; //Choix de l'utilisateur entre condition aleatoire ou entrer
 int count = 0;
 short start = 0; //Verifie si c'est le 1 chargement (Pour free les listes)
+Queue* tracker;
 
 /*Gestion du texte FPS*/
 int texW = 0, texH = 0;
@@ -51,8 +53,8 @@ SDL_Texture * texture;
 char test[10];
 
 /*Gestion des menus*/
-int isMenuOn = 1;
-short pause = 0;
+short isMenuOn = 1;
+short isPauseOn = 0;
 
 /*Gestion des fps*/
 int fps = 0, tick = 0, tickDepart = 0, tickArrivee = 0, difference = 0; 
@@ -68,8 +70,7 @@ camera cam;
 point centerMass;
 
 //Position de la souris
-int x;
-int y;
+pointInt posMouse;
 
 
 int main(int argc, char **argv){
@@ -129,18 +130,18 @@ int main(int argc, char **argv){
 
                 if(isMenuOn){
                     //Recuperation des coord de la souris au moment du click
-                    SDL_GetMouseState(&x, &y); 
+                    SDL_GetMouseState(&posMouse.x, &posMouse.y); 
 
-                    if (x > 303 && x < 480 && y > 225 && y < 290){ //On verifie si le click est dans le bouton
+                    if (posMouse.x > 303 && posMouse.x < 480 && posMouse.y > 225 && posMouse.y < 290){ //On verifie si le click est dans le bouton
                         type = 1;
                     }
-                    else if (x > 305 && x < 480 && y > 320 && y < 385){
+                    else if (posMouse.x > 305 && posMouse.x < 480 && posMouse.y > 320 && posMouse.y < 385){
                         type = 2;
                     }
-                    else if (x > 305 && x < 480 && y > 412 && y < 480){
+                    else if (posMouse.x > 305 && posMouse.x < 480 && posMouse.y > 412 && posMouse.y < 480){
                         type = 3;
                     }
-                    else if (x > 305 && x < 480 && y > 508 && y < 575){
+                    else if (posMouse.x > 305 && posMouse.x < 480 && posMouse.y > 508 && posMouse.y < 575){
                         type = 4;
                     }
 
@@ -149,17 +150,20 @@ int main(int argc, char **argv){
                     }else if (type == 1){
                         taille = 2; //Nombre de corps 2
                         tab = allocPlanet(taille);
+                        
                         initPlanetDemo1(tab, HEIGHT,WIDTH); //Chargement de la premiere demo
                         start = 1;
                         isMenuOn = 0;//On quit le menu
                     }else if (type > 2){
                         taille = type;
+                        
                         tab = allocPlanet(taille);
                         initPlanetAlea(tab, taille, HEIGHT, WIDTH);
                         start = 1;
                         isMenuOn = 0; //On quit le menu
                     }else{
                         taille = 2; //Nombre de corps 2
+                        
                         tab = allocPlanet(taille);
                         initPlanetDemo2(tab, HEIGHT,WIDTH); //Chargement de la premiere demo
                         start = 1;
@@ -178,10 +182,10 @@ int main(int argc, char **argv){
                             break;
 
                         case SDLK_SPACE:  //Switch PAUSE
-                            if (pause == 1)
-                                pause = 0; 
+                            if (isPauseOn == 1)
+                                isPauseOn = 0; 
                             else
-                                pause = 1;
+                                isPauseOn = 1;
                             break;
                     default:
                         break;
@@ -222,9 +226,10 @@ int main(int argc, char **argv){
                 tab[i].y -= cam.y;
             }
 
-            if (!pause){
+            if (!isPauseOn){
                 //Actualisation de la position des planetes
                 updatePlanet(tab, taille);
+                
             }
             //Affichage des planete
             affichage(renderer, tab, taille);
@@ -270,6 +275,7 @@ int main(int argc, char **argv){
     SDL_DestroyWindow(window);
     TTF_Quit();
     SDL_Quit();
+    
     free(tab);
     return EXIT_SUCCESS;
 }
