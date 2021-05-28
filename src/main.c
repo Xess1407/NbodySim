@@ -145,27 +145,32 @@ int main(int argc, char **argv){
                         type = 4;
                     }
 
-                    if (type == 0){ 
-
-                    }else if (type == 1){
+                    if (type == 1){
                         taille = 2; //Nombre de corps 2
                         tab = allocPlanet(taille);
                         
                         initPlanetDemo1(tab, HEIGHT,WIDTH); //Chargement de la premiere demo
                         start = 1;
                         isMenuOn = 0;//On quit le menu
-                    }else if (type > 2){
+                    }else if (type == 4){
                         taille = type;
                         
                         tab = allocPlanet(taille);
-                        initPlanetAlea(tab, taille, HEIGHT, WIDTH);
+                        initPlanetDemo4(tab, HEIGHT,WIDTH);
                         start = 1;
                         isMenuOn = 0; //On quit le menu
-                    }else{
+                    }else if (type == 2){
                         taille = 2; //Nombre de corps 2
                         
                         tab = allocPlanet(taille);
                         initPlanetDemo2(tab, HEIGHT,WIDTH); //Chargement de la premiere demo
+                        start = 1;
+                        isMenuOn = 0;//On quit le menu
+                    }else{
+                        taille = 3; //Nombre de corps 2
+                        
+                        tab = allocPlanet(taille);
+                        initPlanetDemo3(tab, HEIGHT,WIDTH); //Chargement de la premiere demo
                         start = 1;
                         isMenuOn = 0;//On quit le menu
                     }

@@ -60,3 +60,59 @@ void initPlanetDemo2(planet* t, int height, int width){
         t[1].y_vel = 10;
         t[1].rayon = 20;
 }
+
+/**
+ * @brief Procedure to initialise an array of planets for demo 
+ * 
+ * @param t 
+ * @param height 
+ * @param width
+ */
+void initPlanetDemo3(planet* t, int height, int width){
+
+        t[0].x = width/2; //en haut
+        t[0].y = height/4;
+        t[0].x_vel = -10;
+        t[0].y_vel = 0;
+        t[0].rayon = 20;
+
+        t[1].x = width/4; //a gauche
+        t[1].y = height/2;
+        t[1].x_vel = 0;
+        t[1].y_vel = 2;
+        t[1].rayon = 20;
+
+        t[2].x = width - 10; //a gauche
+        t[2].y = height - 50;
+        t[2].x_vel = 0;
+        t[2].y_vel = 10;
+        t[2].rayon = 20;
+}
+
+/**
+ * @brief Procedure to initialise an array of planets for demo 
+ * 
+ * @param t 
+ * @param height 
+ * @param width
+ */
+void initPlanetDemo4(planet* t, int height, int width){
+
+        t[0].x = width/2; 
+        t[0].y = height/4;
+        t[0].x_vel = -10;
+        t[0].y_vel = 0;
+        t[0].rayon = 20;
+
+        t[1].x = width/4; 
+        t[1].y = height/2;
+        t[1].x_vel = 0;
+        t[1].y_vel = 2;
+        t[1].rayon = 20;
+
+        t[2].x = width - 10; 
+        t[2].y = height - 50;
+        t[2].x_vel = 0;
+        t[2].y_vel = 10;
+        t[2].rayon = 50;
+}

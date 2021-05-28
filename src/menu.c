@@ -104,7 +104,7 @@ void menu(SDL_Renderer* renderer,TTF_Font *font, int height, int width){
     SDL_DestroyTexture(texture);
 
     /*4-Body*/
-    texte = TTF_RenderText_Blended(font, "4-Body", colorWhite);
+    texte = TTF_RenderText_Blended(font, "3-Body", colorWhite);
     texture = SDL_CreateTextureFromSurface(renderer, texte);
     SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
     SDL_Rect rectBouton4 = { texW*2.4, texH*11, texW, texH};
