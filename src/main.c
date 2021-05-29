@@ -166,7 +166,7 @@ int main(int argc, char **argv){
                         initPlanetDemo2(tab, HEIGHT,WIDTH); //Chargement de la premiere demo
                         start = 1;
                         isMenuOn = 0;//On quit le menu
-                    }else{
+                    }else if (type == 3){
                         taille = 3; //Nombre de corps 2
                         
                         tab = allocPlanet(taille);
