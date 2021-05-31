@@ -2,6 +2,11 @@
 
 Projet fait dans le cadre de notre TIPE
 
+## Dépendence Linux
+
+sudo apt-get install libsdl2-2.0-0 libsdl2-image-2.0-0 libsdl2-ttf-2.0-0
+sudo apt-get install libsdl2-ttf-dev
+
 ## Compilation
 
 Windows: gcc src/"*.c" -Wall -lm  -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf 
