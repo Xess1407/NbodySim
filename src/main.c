@@ -153,7 +153,7 @@ int main(int argc, char **argv){
                         start = 1;
                         isMenuOn = 0;//On quit le menu
                     }else if (type == 4){
-                        taille = type;
+                        taille = 3;
                         
                         tab = allocPlanet(taille);
                         initPlanetDemo4(tab, HEIGHT,WIDTH);
